@@ -1,4 +1,151 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# ECommerce App
+
+A modern mobile e-commerce application built with [React Native](https://reactnative.dev) and TypeScript. This app provides a seamless shopping experience with product browsing, detailed product information, shopping cart functionality, and more.
+
+## Features
+
+- **Product Gallery**: Browse a curated selection of products with beautiful image carousels
+- **Product Details**: View detailed information about each product including images, descriptions, and pricing
+- **Shopping Cart**: Add products to cart with persistent state management using Zustand
+- **Navigation**: Smooth navigation between screens using React Navigation
+- **Vector Icons**: Beautiful icons powered by Ionicons
+- **TypeScript**: Full TypeScript support for type safety and better developer experience
+
+## Tech Stack
+
+- **React Native** (v0.84.0) - Mobile framework
+- **React** (v19.2.3) - UI library
+- **TypeScript** - Type-safe JavaScript
+- **React Navigation** - Screen navigation and routing
+- **Zustand** - State management for cart
+- **React Native Reanimated** - Advanced animations
+- **Ionicons** - Icon library
+
+## Project Structure
+
+```
+src/
+├── components/          # Reusable UI components
+│   ├── AddToCartButton.tsx
+│   ├── CartIcon.tsx
+│   ├── CommonHeader.tsx
+│   ├── ImageCarousel.tsx
+│   └── ProductCard.tsx
+├── data/               # Static data and products
+│   └── products.ts
+├── navigation/         # Navigation configuration
+│   └── RootNavigator.tsx
+├── screens/            # Screen components
+│   ├── ProductDetailScreen.tsx
+│   └── ProductGalleryScreen.tsx
+├── store/              # State management
+│   └── useCartStore.ts
+└── types/              # TypeScript type definitions
+    └── Product.ts
+```
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v22.11.0 or higher)
+- React Native development environment set up ([guides](https://reactnative.dev/docs/environment-setup))
+- Ruby and CocoaPods (for iOS development on macOS)
+
+### Installation
+
+1. Clone the repository and install dependencies:
+
+```bash
+yarn install
+# or
+npm install
+```
+
+2. For iOS, install CocoaPods dependencies:
+
+```bash
+bundle install
+cd ios
+bundle exec pod install
+cd ..
+```
+
+### Running the App
+
+#### Start Metro (JavaScript build tool)
+
+```bash
+yarn start
+# or
+npm start
+```
+
+#### Run on iOS
+
+```bash
+yarn ios
+# or
+npm run ios
+```
+
+#### Run on Android
+
+```bash
+yarn android
+# or
+npm run android
+```
+
+## Available Scripts
+
+- `yarn start` - Start the Metro dev server
+- `yarn ios` - Build and run on iOS simulator
+- `yarn android` - Build and run on Android emulator/device
+- `yarn test` - Run tests with Jest
+- `yarn lint` - Run ESLint to check code quality
+
+## Development
+
+### Making Changes
+
+Changes made to the code are automatically reflected with Hot Reload (powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh)).
+
+To force a full reload:
+- **iOS**: Press <kbd>R</kbd> in the simulator
+- **Android**: Press <kbd>R</kbd> twice or select "Reload" from the dev menu (<kbd>Ctrl ⌘</kbd> + <kbd>M</kbd>)
+
+### Code Style
+
+The project uses ESLint and Prettier for code quality and formatting. Run the lint command to check for issues:
+
+```bash
+yarn lint
+```
+
+## Testing
+
+Run the test suite with Jest:
+
+```bash
+yarn test
+```
+
+## Troubleshooting
+
+- **Metro issues**: Clear cache with `yarn start --reset-cache`
+- **iOS build errors**: Try clearing iOS build folder: `rm -rf ios/Pods ios/Podfile.lock && bundle exec pod install`
+- **Android issues**: Clear Android build with `./android/gradlew clean`
+
+## Learn More
+
+- [React Native Documentation](https://reactnative.dev)
+- [React Navigation Documentation](https://reactnavigation.org)
+- [Zustand Documentation](https://github.com/pmndrs/zustand)
+
+## License
+
+This project is private and proprietary.
 
 # Getting Started
 
