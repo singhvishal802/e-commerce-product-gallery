@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { Text, StyleSheet, ScrollView } from 'react-native';
 import Animated, { FadeInLeft } from 'react-native-reanimated';
 import ImageCarousel from '../components/ImageCarousel';
 import AddToCartButton from '../components/AddToCartButton';

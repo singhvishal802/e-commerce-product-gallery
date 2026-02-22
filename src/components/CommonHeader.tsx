@@ -39,7 +39,7 @@ const CommonHeader = React.memo(function CommonHeader({
           <Ionicons name="arrow-back-outline" size={24} color="#000" />
         </Pressable>
       ) : (
-        <View style={{ width: 24 }} /> // placeholder to keep title centered
+        <View style={styles.placeholder} />
       )}
       <Text style={styles.title}>{title}</Text>
       <CartIcon />
@@ -62,5 +62,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '600',
     color: '#111',
+  },
+  placeholder: {
+    width: 24,
   },
 });

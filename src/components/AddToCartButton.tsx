@@ -8,6 +8,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { useCartStore } from '../store/useCartStore';
 import { Product } from '../types/Product';
+import Ionicons from '@react-native-vector-icons/ionicons';
 
 /**
  * AddToCartButton component - Button that adds a product to the shopping cart
@@ -43,6 +44,7 @@ const AddToCartButton = React.memo(function AddToCartButton({
   return (
     <Pressable onPress={handlePress}>
       <Animated.View style={[styles.button, animatedStyle]}>
+        <Ionicons name="bag-add-outline" size={20} color="#fff" />
         <Text style={styles.text}>Add to Cart</Text>
       </Animated.View>
     </Pressable>
@@ -58,6 +60,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#111',
     borderRadius: 12,
     alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 12,
   },
-  text: { color: '#fff', fontWeight: '600' },
+  text: {
+    fontSize: 16,
+    color: '#fff',
+    fontWeight: '600',
+    lineHeight: 20,
+  },
 });

@@ -32,7 +32,7 @@ const CartIcon = React.memo(function CartIcon(): React.ReactElement {
 
     if (itemCount === 0) return;
     scale.value = withSequence(withSpring(1.3), withSpring(1));
-  }, [itemCount]);
+  }, [itemCount, scale]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
