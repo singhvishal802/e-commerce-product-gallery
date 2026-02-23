@@ -4,14 +4,6 @@ A React Native product browsing app featuring smooth animations, shared element 
 
 ---
 
-## 📱 Screenshots
-
-| Gallery Screen                         | Detail Screen                      |
-| -------------------------------------- | ---------------------------------- |
-| Product list with staggered animations | Image carousel with dot indicators |
-
----
-
 ## 🧰 Technical Stack
 
 ### Core Framework
@@ -185,3 +177,7 @@ Hi,
 I wanted to give you a quick update on how the animations were implemented across the product gallery app. Since there were no strict design specs provided for the animation behaviour, I made deliberate choices to balance visual quality with performance — specifically, all animations are driven by Reanimated V3's UI thread worklets using `useSharedValue` and `useAnimatedStyle`, which ensures 60 FPS without touching the JavaScript thread. For the carousel, I used an `interpolate`-based scale effect (0.9 → 1.0) and dual opacity/scale animations on the dot indicators to create a polished, responsive feel as users swipe between images. The shared element transition on the product image between the gallery and detail screen was implemented using Reanimated's `sharedTransitionTag`, giving the navigation a native, fluid quality. For the Add to Cart button, I opted for a `withTiming`-based opacity pulse rather than a spring animation, as timing functions are more predictable and less likely to overshoot on lower-end Android devices — this achieves a comparable tactile feel with better cross-device consistency. Happy to iterate on any of the animation curves or timings in the next sprint if you'd like to refine the feel further.
 
 ---
+
+## 🙏 Thank You
+
+Thank you for taking the time to review this submission. I thoroughly enjoyed building this app and exploring the capabilities of React Native Reanimated for smooth, performant animations. I put careful thought into every component — from the shared element transitions to the UI thread optimisations — and I hope it reflects my attention to detail and passion for crafting great mobile experiences. I look forward to your feedback and the opportunity to discuss the implementation further.
