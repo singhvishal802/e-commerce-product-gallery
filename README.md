@@ -1,244 +1,187 @@
-# ECommerce App
+# 🛍️ Product Gallery App
 
-A modern mobile e-commerce application built with [React Native](https://reactnative.dev) and TypeScript. This app provides a seamless shopping experience with product browsing, detailed product information, shopping cart functionality, and more.
+A React Native product browsing app featuring smooth animations, shared element transitions, and a shopping cart.
 
-## Features
+---
 
-- **Product Gallery**: Browse a curated selection of products with beautiful image carousels
-- **Product Details**: View detailed information about each product including images, descriptions, and pricing
-- **Shopping Cart**: Add products to cart with persistent state management using Zustand
-- **Navigation**: Smooth navigation between screens using React Navigation
-- **Vector Icons**: Beautiful icons powered by Ionicons
-- **TypeScript**: Full TypeScript support for type safety and better developer experience
+## 📱 Screenshots
 
-## Tech Stack
+| Gallery Screen                         | Detail Screen                      |
+| -------------------------------------- | ---------------------------------- |
+| Product list with staggered animations | Image carousel with dot indicators |
 
-- **React Native** (v0.84.0) - Mobile framework
-- **React** (v19.2.3) - UI library
-- **TypeScript** - Type-safe JavaScript
-- **React Navigation** - Screen navigation and routing
-- **Zustand** - State management for cart
-- **React Native Reanimated** - Advanced animations
-- **Ionicons** - Icon library
+---
 
-## Project Structure
+## 🧰 Technical Stack
+
+### Core Framework
+
+| Technology   | Version |
+| ------------ | ------- |
+| React Native | 0.84.0  |
+| TypeScript   | 5.x     |
+| React        | 19.x    |
+
+### Navigation
+
+| Library                          | Purpose                |
+| -------------------------------- | ---------------------- |
+| `@react-navigation/native`       | Core navigation        |
+| `@react-navigation/native-stack` | Native stack navigator |
+| `react-native-safe-area-context` | Safe area handling     |
+
+### Animation
+
+| Library                      | Purpose                        |
+| ---------------------------- | ------------------------------ |
+| `react-native-reanimated` v4 | All animations and transitions |
+
+Reanimated was chosen over the built-in Animated API because:
+
+- Animations run entirely on the **UI thread** — no JS bridge crossing
+- Supports **shared element transitions** between screens
+- Provides `useAnimatedScrollHandler` for scroll-driven animations
+- Consistent 60fps performance even under heavy JS load
+
+### State Management
+
+| Library   | Purpose           |
+| --------- | ----------------- |
+| `zustand` | Global cart state |
+
+Zustand was chosen over Redux or Context API because:
+
+- Minimal boilerplate — store set up in a single file
+- Selective subscriptions prevent unnecessary re-renders
+- Lightweight bundle size
+
+### Icons
+
+| Library                               | Purpose                     |
+| ------------------------------------- | --------------------------- |
+| `@react-native-vector-icons/ionicons` | UI icons throughout the app |
+
+---
+
+## 🏗️ Project Structure
 
 ```
 src/
-├── components/          # Reusable UI components
-│   ├── AddToCartButton.tsx
-│   ├── CartIcon.tsx
-│   ├── CommonHeader.tsx
-│   ├── ImageCarousel.tsx
-│   └── ProductCard.tsx
-├── data/               # Static data and products
-│   └── products.ts
-├── navigation/         # Navigation configuration
-│   └── RootNavigator.tsx
-├── screens/            # Screen components
-│   ├── ProductDetailScreen.tsx
-│   └── ProductGalleryScreen.tsx
-├── store/              # State management
-│   └── useCartStore.ts
-└── types/              # TypeScript type definitions
-    └── Product.ts
+├── components/
+│   ├── AddToCartButton.tsx   # Animated add to cart button
+│   ├── CartIcon.tsx          # Header cart icon with badge
+│   ├── CarouselItem.tsx      # Single carousel image with scale animation
+│   ├── CommonHeader.tsx      # Reusable header component
+│   ├── DotIndicator.tsx      # Animated pagination dot
+│   ├── ImageCarousel.tsx     # Horizontal image carousel
+│   └── ProductCard.tsx       # Product card with staggered fade-in animation
+├── navigation/
+│   └── RootNavigator.tsx     # Stack navigator configuration
+├── screens/
+│   ├── ProductGalleryScreen.tsx   # Product listing screen
+│   └── ProductDetailScreen.tsx    # Product detail screen
+├── store/
+│   └── useCartStore.ts       # Zustand cart store
+├── data/
+│   └── products.ts           # Static product data
+└── types/
+    └── Product.ts            # Product type definition
 ```
 
-## Getting Started
+---
+
+## ✨ Features
+
+- **Product Gallery** — FlatList with performance optimisations
+- **Staggered Animations** — Cards fade in with sequential delays on first load only
+- **Shared Element Transitions** — Product image animates seamlessly from gallery card into detail screen
+- **Image Carousel** — Horizontal paging carousel with scale interpolation and animated dot indicators
+- **Animated Cart Badge** — Bounces when item count increases, skips animation on mount
+- **Pulse Button Animation** — Add to Cart button pulses on press using opacity sequence
+
+---
+
+## ⚠️ Known Limitations & Trade-offs
+
+### 1. Static Product Data
+
+Products are loaded from a local `products.ts` file rather than a remote API. There is no loading state, error handling, or pagination.
+
+### 2. No Remove From Cart on UI
+
+While `removeFromCart` and `clearCart` actions exist in the Zustand store, there is no UI currently exposed to remove items. A cart screen would be needed to surface this functionality.
+
+### 3. Shared Element Transition — First Image Only
+
+The shared element transition is applied only to the first image in the carousel (`index === 0`). If the user has swiped to a different image before navigating back, the transition will still animate from/to the first image rather than the currently visible one.
+
+### 4. Cart Badge Count Limit
+
+The cart badge displays the raw item count with no upper limit cap. For counts above 99, the badge will expand beyond its intended circular shape. A common fix (`99+`) has not been implemented.
+
+### 5. Image Loading States
+
+`Animated.Image` components in the carousel have no loading placeholder or error fallback. On slow networks, images may appear blank until fully loaded.
+
+### 6. No Unit or Integration Tests
+
+The app ships without a test suite. Given the animation-heavy nature of the codebase, testing with React Native Testing Library and Reanimated's mock setup would be a valuable addition.
+
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
 
-- Node.js (v22.11.0 or higher)
-- React Native development environment set up ([guides](https://reactnative.dev/docs/environment-setup))
-- Ruby and CocoaPods (for iOS development on macOS)
+- Node.js 18+
+- React Native CLI
+- Xcode (iOS) or Android Studio (Android)
 
 ### Installation
 
-1. Clone the repository and install dependencies:
-
 ```bash
-yarn install
-# or
+# Install dependencies
 npm install
+
+# iOS — install pods
+cd ios && pod install && cd ..
+
+# Run on iOS
+npx react-native run-ios
+
+# Run on Android
+npx react-native run-android
 ```
 
-2. For iOS, install CocoaPods dependencies:
+---
 
-```bash
-bundle install
-cd ios
-bundle exec pod install
-cd ..
-```
+## 🔧 Performance Optimisations Applied
 
-### Running the App
+| Technique                               | Where Used                      |
+| --------------------------------------- | ------------------------------- |
+| `React.memo`                            | All components                  |
+| `useCallback`                           | Event handlers                  |
+| `useMemo`                               | Carousel item and dot rendering |
+| `useSharedValue` + UI thread animations | All Reanimated animations       |
+| Selective Zustand selectors             | `CartIcon`, `AddToCartButton`   |
+| `removeClippedSubviews`                 | FlatList                        |
+| Extracted `renderItem` / `keyExtractor` | FlatList                        |
+| `as const` for stable references        | Navigator screen options        |
+| `useRef` guard for mount animation      | CartIcon                        |
 
-#### Start Metro (JavaScript build tool)
+## Profiling Insight
 
-```bash
-yarn start
-# or
-npm start
-```
+Performance was verified using the **React Native Performance Monitor** (accessible via the in-app developer menu) on iOS and Android simulators, as real device testing was not available. All animations are driven exclusively by Reanimated's `SharedValue` and `useAnimatedStyle`, ensuring zero JavaScript thread involvement during animation execution.
 
-#### Run on iOS
+---
 
-```bash
-yarn ios
-# or
-npm run ios
-```
+## 📩 Design Liaison Note
 
-#### Run on Android
+> **To:** Lead Product Designer
+> **Re:** Animation Strategy & Implementation Notes
 
-```bash
-yarn android
-# or
-npm run android
-```
+Hi,
 
-## Available Scripts
+I wanted to give you a quick update on how the animations were implemented across the product gallery app. Since there were no strict design specs provided for the animation behaviour, I made deliberate choices to balance visual quality with performance — specifically, all animations are driven by Reanimated V3's UI thread worklets using `useSharedValue` and `useAnimatedStyle`, which ensures 60 FPS without touching the JavaScript thread. For the carousel, I used an `interpolate`-based scale effect (0.9 → 1.0) and dual opacity/scale animations on the dot indicators to create a polished, responsive feel as users swipe between images. The shared element transition on the product image between the gallery and detail screen was implemented using Reanimated's `sharedTransitionTag`, giving the navigation a native, fluid quality. For the Add to Cart button, I opted for a `withTiming`-based opacity pulse rather than a spring animation, as timing functions are more predictable and less likely to overshoot on lower-end Android devices — this achieves a comparable tactile feel with better cross-device consistency. Happy to iterate on any of the animation curves or timings in the next sprint if you'd like to refine the feel further.
 
-- `yarn start` - Start the Metro dev server
-- `yarn ios` - Build and run on iOS simulator
-- `yarn android` - Build and run on Android emulator/device
-- `yarn test` - Run tests with Jest
-- `yarn lint` - Run ESLint to check code quality
-
-## Development
-
-### Making Changes
-
-Changes made to the code are automatically reflected with Hot Reload (powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh)).
-
-To force a full reload:
-- **iOS**: Press <kbd>R</kbd> in the simulator
-- **Android**: Press <kbd>R</kbd> twice or select "Reload" from the dev menu (<kbd>Ctrl ⌘</kbd> + <kbd>M</kbd>)
-
-### Code Style
-
-The project uses ESLint and Prettier for code quality and formatting. Run the lint command to check for issues:
-
-```bash
-yarn lint
-```
-
-## Testing
-
-Run the test suite with Jest:
-
-```bash
-yarn test
-```
-
-## Troubleshooting
-
-- **Metro issues**: Clear cache with `yarn start --reset-cache`
-- **iOS build errors**: Try clearing iOS build folder: `rm -rf ios/Pods ios/Podfile.lock && bundle exec pod install`
-- **Android issues**: Clear Android build with `./android/gradlew clean`
-
-## Learn More
-
-- [React Native Documentation](https://reactnative.dev)
-- [React Navigation Documentation](https://reactnavigation.org)
-- [Zustand Documentation](https://github.com/pmndrs/zustand)
-
-## License
-
-This project is private and proprietary.
-
-# Getting Started
-
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
-
-## Step 1: Start Metro
-
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
-
-To start the Metro dev server, run the following command from the root of your React Native project:
-
-```sh
-# Using npm
-npm start
-
-# OR using Yarn
-yarn start
-```
-
-## Step 2: Build and run your app
-
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
-```
-
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+---
